@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.store.storeSB.model.Category;
 import com.example.store.storeSB.model.Product;
 import com.example.store.storeSB.repository.CategoryRepository;
+import com.mysql.cj.Query;
 
 @RestController
 @RequestMapping("/api")
@@ -44,6 +45,20 @@ public class CategoryController {
 		}
 		System.out.print("producto");
 		System.out.print(categories.get(0));
+		
+		 return new ResponseEntity<>(categories, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/categoriesName")
+	public ResponseEntity<List<Category>> getAllCategoriesName(@RequestParam(required = false) String name){
+		try {
+			System.out.print("nombre "+name);
+		
+			List<Category> categories = new ArrayList<Category>();
+			categoryRepository.findByName(name).forEach(categories::add);;
 		
 		 return new ResponseEntity<>(categories, HttpStatus.OK);
 		} catch (Exception e) {

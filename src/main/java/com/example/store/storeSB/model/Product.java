@@ -16,6 +16,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -84,10 +85,10 @@ public class Product  implements Serializable{
 		this.route = route;
 	}
 
+ 
 
 
-
-
+@JsonBackReference
 	public Category getCategory() {
 		return category;
 	}

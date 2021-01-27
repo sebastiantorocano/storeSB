@@ -11,13 +11,16 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="categories")
+@NamedQuery(name = "Category.findByName",query = "From Category WHERE name=?1")
 public class Category  implements Serializable{
 
 	
@@ -56,7 +59,7 @@ public class Category  implements Serializable{
 	public Long getCategoryId() {
 		return categoryId;
 	}
-
+ 
 
 
 	public void setCategoryId(Long categoryId) {
@@ -64,7 +67,7 @@ public class Category  implements Serializable{
 	}
 
 
-
+@JsonManagedReference
 	public Set<Product> getProduct() {
 		return product;
 	}
