@@ -1,7 +1,7 @@
 package com.example.store.storeSB.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.Calendar;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,7 +15,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -35,7 +35,19 @@ public class Category  implements Serializable{
 	private String description;
 	private int state;
 	
+	private Calendar creation;
+	
 	 
+	public Calendar getCreation() {
+		return creation;
+	}
+
+
+
+	public void setCreation(Calendar creation) {
+		this.creation = creation;
+	}
+
 	@OneToMany(mappedBy = "category",fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
 	private Set<Product> product;
@@ -45,12 +57,17 @@ public class Category  implements Serializable{
  
 
 
-	public Category(Long categoryId, String name, String description, int state, Set<Product> product) {
+
+
+
+	public Category(Long categoryId, String name, String description, int state, Calendar creation,
+			Set<Product> product) {
 		super();
 		this.categoryId = categoryId;
 		this.name = name;
 		this.description = description;
 		this.state = state;
+		this.creation = creation;
 		this.product = product;
 	}
 

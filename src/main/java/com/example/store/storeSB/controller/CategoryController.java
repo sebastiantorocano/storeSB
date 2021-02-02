@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.store.storeSB.model.Category;
-import com.example.store.storeSB.model.Product;
 import com.example.store.storeSB.repository.CategoryRepository;
-import com.mysql.cj.Query;
+
 
 @RestController
 @RequestMapping("/api")
@@ -32,14 +31,13 @@ public class CategoryController {
 	public ResponseEntity<List<Category>> getAllCategories(@RequestParam(required = false) String name){
 		try {
 		
-		List<Category> categories = new ArrayList<Category>();
+		List<Category> categories = new ArrayList<>();
 	
 		
 		if(name==null) {
 			
 			System.out.print("nulll nameee------");
-			//System.out.print(products.get(0).getName());
-			categoryRepository.findAll().forEach(categories::add);;
+			categoryRepository.findAll().forEach(categories::add);
 		}else {
 			categoryRepository.findByName(name).forEach(categories::add);
 		}
@@ -57,8 +55,8 @@ public class CategoryController {
 		try {
 			System.out.print("nombre "+name);
 		
-			List<Category> categories = new ArrayList<Category>();
-			categoryRepository.findByName(name).forEach(categories::add);;
+			List<Category> categories = new ArrayList<>();
+			categoryRepository.findByName(name).forEach(categories::add);
 		
 		 return new ResponseEntity<>(categories, HttpStatus.OK);
 		} catch (Exception e) {
@@ -69,9 +67,9 @@ public class CategoryController {
 	@PostMapping("/categories")
 	  public ResponseEntity<Category> createProduct(@RequestBody Category category) {
 	    try {
-	    	Category _category= categoryRepository
+	    	Category categoryResponse= categoryRepository
 	          .save(category);
-	      return new ResponseEntity<>(_category, HttpStatus.CREATED);
+	      return new ResponseEntity<>(categoryResponse, HttpStatus.CREATED);
 	    } catch (Exception e) {
 	      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
